@@ -53,11 +53,6 @@ def handle_400(request, response, exception):
     response.write(jinja_environment.get_template('400.html').render())
 
 
-def handle_403(request, response, exception):
-    response.set_status(403)
-    response.write(jinja_environment.get_template('403.html').render())
-
-
 def handle_404(request, response, exception):
     response.set_status(404)
     response.write(jinja_environment.get_template('404.html').render())
@@ -77,7 +72,6 @@ app = webapp2.WSGIApplication(
     ],
     debug=(not production))
 app.error_handlers[400] = handle_400
-app.error_handlers[403] = handle_403
 app.error_handlers[404] = handle_404
 if production:
     app.error_handlers[500] = handle_500
