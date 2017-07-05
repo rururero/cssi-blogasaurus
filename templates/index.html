@@ -1,4 +1,4 @@
-{#
+<!--
   Copyright 2017 Google Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,24 +12,32 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-#}
-
-{% extends 'layout.html' %}
-
-{% block content %}
-  {% if nickname %}
-    <p>
-      Hello, {{ nickname }}
-      {% if is_admin %}
-        • You are an admin
+-->
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Blogasaurus</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div id="content">
+      <h1><a href="/">Blogasaurus</a></h1>
+      {% if email %}
+        <p>
+          Hello, {{ email }}
+          {% if is_admin %}
+            • You are an admin
+          {% endif %}
+          • <a href="{{ auth_url }}">Sign Out</a>
+        </p>
+      {% else %}
+        <p><a href="{{ auth_url }}">Sign In with a Google Account</a></p>
       {% endif %}
-      • <a href="{{ auth_url }}">Sign Out</a>
-    </p>
-  {% else %}
-    <p><a href="{{ auth_url }}">Sign In with a Google Account</a></p>
-  {% endif %}
-  {% for post in posts %}
-    <h2><a href="/view-post?id={{ loop.index }}">{{ post.title }}</a></h2>
-    <p>{{ post.content }}</p>
-  {% endfor %}
-{% endblock %}
+      {% for post in posts %}
+        <h2><a href="/view-post?id={{ loop.index }}">{{ post.title }}</a></h2>
+        <p>{{ post.content }}</p>
+      {% endfor %}
+    </div>
+  </body>
+</html>

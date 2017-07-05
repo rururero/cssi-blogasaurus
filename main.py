@@ -33,13 +33,13 @@ class IndexHandler(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if user:
-            nickname = user.nickname()
+            email = user.email()
             auth_url = users.create_logout_url(dest_url='/')
         else:
-            nickname = None
+            email = None
             auth_url = users.create_login_url(dest_url='/')
         self.response.write(jinja_environment.get_template('index.html').render(
-            nickname=nickname,
+            email=email,
             is_admin=users.is_current_user_admin(),
             auth_url=auth_url,
             posts=posts.POSTS))
